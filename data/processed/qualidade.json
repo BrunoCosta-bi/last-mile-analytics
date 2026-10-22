@@ -1,0 +1,10 @@
+{
+  "linhas_entrada": 12060,
+  "linhas_aprovadas": 11965,
+  "linhas_rejeitadas": 95,
+  "ids_unicos_aprovados": 11965,
+  "entregues": 10886,
+  "no_prazo": 9705,
+  "taxa_no_prazo": 0.8915,
+  "nota": "Dados 100% sinteticos. Nao representam empresa real."
+}
