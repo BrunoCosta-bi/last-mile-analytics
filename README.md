@@ -149,6 +149,8 @@ As imagens reais representam a interface final do relatório. Já a prévia em P
 
 A amostra foi projetada para ser reprodutível e **não demonstra resultados reais de uma empresa**. Comparações entre meses e tendências representam apenas o comportamento do conjunto sintético.
 
+A prévia analítica em Python não é uma captura do Power BI. A referência visual também é apenas uma proposta de design. As capturas reais estão identificadas separadamente no repositório.
+
 ## Licença
 
 Distribuído sob a [licença MIT](LICENSE). Projeto de portfólio de **Bruno Costa**.
