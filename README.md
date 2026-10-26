@@ -2,9 +2,17 @@
 
 **Análise de desempenho de entregas com Power BI, SQL Server e Python.** Projeto de portfólio com dados **100% sintéticos e reproduzíveis**, criado para investigar pontualidade, pedidos vencidos e desempenho de transportadoras e centros de distribuição.
 
-![Prévia analítica criada a partir do CSV sintético do projeto](docs/preview_sintetico.png)
+## Capturas reais do dashboard
 
-> **Sobre a imagem:** a prévia acima foi gerada em Python com os dados deste repositório; **não é uma captura do Power BI**. A [referência visual aprovada para o layout](docs/referencia_visual_opcao_1.png) também é conceitual. O relatório editável e os cálculos estão no projeto PBIP.
+### Visão Geral
+
+![Página Visão Geral do dashboard Last-Mile Analytics no Power BI](docs/visao-geral-powerbi.png)
+
+### Transportadoras
+
+![Página Transportadoras do dashboard Last-Mile Analytics no Power BI](docs/transportadoras-powerbi.png)
+
+> **Observação:** as imagens acima são capturas reais do relatório no Power BI Desktop. A [prévia analítica em Python](docs/preview_sintetico.png) e a [referência visual aprovada para o layout](docs/referencia_visual_opcao_1.png) continuam no repositório apenas como material de apoio.
 
 ## O que o projeto responde
 
@@ -131,7 +139,13 @@ Os arquivos locais do Power BI (`.pbi/`, `cache.abf`, `localSettings.json`), cac
 
 ## Capturas de tela e limitações
 
-A pasta `docs/` possui uma **prévia calculada com os dados** e uma **referência visual de design**. Elas não devem ser tratadas como screenshots do Power BI. Para registrar a interface real do relatório no GitHub, siga as [orientações para capturas](docs/CAPTURAS.md) após abrir o PBIP no Desktop.
+A pasta `docs/` agora contém:
+
+- **capturas reais do Power BI** (`visao-geral-powerbi.png` e `transportadoras-powerbi.png`);
+- uma **prévia analítica em Python** (`preview_sintetico.png`);
+- uma **referência visual de design** (`referencia_visual_opcao_1.png`).
+
+As imagens reais representam a interface final do relatório. Já a prévia em Python e a referência visual servem apenas como apoio de documentação e não substituem o arquivo PBIP.
 
 A amostra foi projetada para ser reprodutível e **não demonstra resultados reais de uma empresa**. Comparações entre meses e tendências representam apenas o comportamento do conjunto sintético.
 
