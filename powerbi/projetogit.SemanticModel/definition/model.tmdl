@@ -1,0 +1,23 @@
+model Model
+	culture: pt-BR
+	defaultPowerBIDataSourceVersion: powerBI_V3
+	sourceQueryCulture: pt-BR
+	valueFilterBehavior: independent
+	dataAccessOptions
+		legacyRedirects
+		returnErrorValuesAsNull
+
+annotation __PBI_TimeIntelligenceEnabled = 0
+
+annotation PBI_QueryOrder = ["fato_entregas","ModoFonte","CaminhoCSV","ServidorSQL","BancoSQL"]
+
+annotation PBI_ProTooling = ["DevMode"]
+
+ref table fato_entregas
+ref table dim_calendario
+ref table dim_cd
+ref table dim_transportadora
+ref table '* Medidas'
+
+ref cultureInfo pt-BR
+

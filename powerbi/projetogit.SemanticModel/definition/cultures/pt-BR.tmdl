@@ -1,0 +1,189 @@
+cultureInfo pt-BR
+
+	linguisticMetadata =
+			{
+			  "Version": "2.0.0",
+			  "Language": "en-US",
+			  "Entities": {
+			    "medidas.on_time_": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "* Medidas",
+			          "ConceptualProperty": "On Time %"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "Pontualidade": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        },
+			        {
+			          "Pontualidade %": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "medidas.linha_ref": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "* Medidas",
+			          "ConceptualProperty": "linha_ref"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "Referência 90%": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "medidas.entregas_concluídas": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "* Medidas",
+			          "ConceptualProperty": "Entregas Concluídas"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "Concluídas": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "medidas.entregas_atrasadas": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "* Medidas",
+			          "ConceptualProperty": "Entregas Atrasadas"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "Atrasadas": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "medidas.taxa_de_atraso_concluídas_": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "* Medidas",
+			          "ConceptualProperty": "Taxa de Atraso Concluídas %"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "Taxa de atraso %": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "medidas.tentativas_adicionais": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "* Medidas",
+			          "ConceptualProperty": "Tentativas Adicionais"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "Tentativas extras": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "medidas.pendentes_vencidos": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "* Medidas",
+			          "ConceptualProperty": "Pendentes Vencidos"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "Pendentes vencidos": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "dim_transportadora.transportadora": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "dim_transportadora",
+			          "ConceptualProperty": "transportadora"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "Transportadora": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    }
+			  }
+			}
+		contentType: json
+

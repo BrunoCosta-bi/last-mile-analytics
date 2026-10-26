@@ -1,2 +1,2 @@
--r requirements.txt
-pyodbc>=5.0,<6.0
+# Apenas para usar o importador SQL Server opcional.
+pyodbc>=5,<6

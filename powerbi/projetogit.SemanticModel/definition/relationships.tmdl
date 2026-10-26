@@ -1,0 +1,17 @@
+relationship 9a88313c-b689-5729-9525-e33b64090019
+	fromColumn: fato_entregas.data_coleta_dia
+	toColumn: dim_calendario.Date
+
+relationship ddfc8cc1-e818-5a00-b098-34c61dedea03
+	isActive: false
+	fromColumn: fato_entregas.data_entrega_dia
+	toColumn: dim_calendario.Date
+
+relationship f359f1a9-b3fa-5bdb-99a8-ef4bdcad2417
+	fromColumn: fato_entregas.cd
+	toColumn: dim_cd.cd
+
+relationship 07946abe-07b3-5d3a-abf2-302250f96e57
+	fromColumn: fato_entregas.transportadora
+	toColumn: dim_transportadora.transportadora
+

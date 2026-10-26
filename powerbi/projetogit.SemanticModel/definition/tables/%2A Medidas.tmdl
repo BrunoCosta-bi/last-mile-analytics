@@ -1,0 +1,328 @@
+table '* Medidas'
+	lineageTag: 43ef099c-be09-4210-8b3e-820966a78b15
+
+	measure 'Total de Pedidos' =
+			
+			COUNTROWS(fato_entregas)
+		formatString: #,##0
+		displayFolder: 01 - Volumes
+		lineageTag: 5b44a0d9-8671-4be8-9a09-643aa8bd8aea
+
+	measure 'Entregas Concluídas' =
+			
+			CALCULATE(
+			    COUNTROWS(fato_entregas),
+			    fato_entregas[entregue] = TRUE()
+			)
+		formatString: #,##0
+		displayFolder: 01 - Volumes
+		lineageTag: d087e644-6103-4ed0-8dc7-7132ef18372d
+
+	measure 'Entregas no Prazo' =
+			
+			CALCULATE(
+			    COUNTROWS(fato_entregas),
+			    fato_entregas[no_prazo] = TRUE()
+			)
+		formatString: #,##0
+		displayFolder: 02 - Qualidade
+		lineageTag: 9c892be3-996d-4b90-9228-360d00cbdb05
+
+	measure 'On Time %' =
+			
+			DIVIDE(
+			    [Entregas no Prazo],
+			    [Entregas Concluídas]
+			)
+		formatString: 0.00%;-0.00%;0.00%
+		displayFolder: 02 - Qualidade
+		lineageTag: 77245fac-2329-42ca-9f0d-3c65ab6a0a3c
+
+	measure 'Entregas Atrasadas' =
+			
+			CALCULATE(
+			    COUNTROWS(fato_entregas),
+			    fato_entregas[entregue] = TRUE(),
+			    fato_entregas[no_prazo] = FALSE()
+			)
+		formatString: #,##0
+		displayFolder: 02 - Qualidade
+		lineageTag: 348be965-85b6-4afd-a588-80dfff85868f
+
+	measure linha_ref = 0.9
+		formatString: 0.0%;-0.0%;0.0%
+		lineageTag: 3eacb49c-3d94-4648-a290-cf534b3f86c6
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Taxa de Conclusão %' =
+			
+			DIVIDE(
+			    [Entregas Concluídas],
+			    [Total de Pedidos]
+			)
+		formatString: 0.00%;-0.00%;0.00%
+		lineageTag: 581fdd33-a4cd-49e1-969e-e87ea0cc4276
+
+	measure 'Pedidos Pendentes' =
+			
+			[Total de Pedidos] - [Entregas Concluídas]
+		formatString: #,##0
+		displayFolder: 01 - Volumes
+		lineageTag: c5423c2e-f9fd-4c69-a5c2-4d7a6e89e241
+
+	measure 'Tempo Médio de Ciclo (h)' =
+			
+			CALCULATE(
+			    AVERAGE(fato_entregas[tempo_ciclo_horas]),
+			    fato_entregas[entregue] = TRUE()
+			)
+		formatString: 0.0
+		lineageTag: ae7e09ed-0b58-45c4-9247-49a679759301
+
+	measure 'Transportadoras Ativas' =
+			
+			DISTINCTCOUNT(fato_entregas[transportadora])
+		formatString: #,##0
+		lineageTag: a4ad3003-83cc-4a02-a46e-ac8007430e2c
+
+	measure 'Entregas na 1ª Tentativa' =
+			
+			CALCULATE(
+			    [Entregas Concluídas],
+			    fato_entregas[tentativas] = 1
+			)
+		formatString: #,##0
+		lineageTag: d5098803-fb1f-434e-b26f-e41d0bbb44a0
+
+	measure '1ª Tentativa %' =
+			
+			DIVIDE(
+			    [Entregas na 1ª Tentativa],
+			    [Entregas Concluídas]
+			)
+		formatString: 0.00%;-0.00%;0.00%
+		lineageTag: f4c38230-3f41-468d-a08c-115aa5f79834
+
+	measure 'Tentativas Adicionais' =
+			
+			SUMX(
+			    fato_entregas,
+			    MAX(0, fato_entregas[tentativas] - 1)
+			)
+		formatString: #,##0
+		lineageTag: 9654df7c-e162-4ce9-8831-a18c447e0952
+
+	measure 'Atraso Médio (h)' =
+			
+			CALCULATE(
+			    AVERAGE(fato_entregas[atraso_horas]),
+			    fato_entregas[entregue] = TRUE(),
+			    fato_entregas[no_prazo] = FALSE()
+			)
+		formatString: 0.0
+		lineageTag: b6d646b9-cfa5-4130-841c-4551f2ea7920
+
+	/// Data de corte do portfólio sintético, 26/10/2026.
+	measure 'Data de Corte' = DATE(2026, 10, 26)
+		formatString: Short Date
+		displayFolder: 00 - Parâmetros
+		lineageTag: e08ccea3-dca3-44f6-87c5-3273c7f3bae8
+
+	/// Pedidos não entregues cujo prazo venceu até o final da data de corte.
+	measure 'Pendentes Vencidos' =
+			VAR FimDia = [Data de Corte] + 1
+			RETURN
+			    COUNTROWS(
+			        FILTER(fato_entregas,
+			            fato_entregas[entregue] = FALSE()
+			                && fato_entregas[data_prevista] < FimDia
+			        )
+			    )
+		formatString: #,##0
+		displayFolder: 01 - Volumes
+		lineageTag: 385a4c9e-c786-4bbc-a771-3ac1ef2b3c40
+
+	/// Parcela de atrasos entre entregas concluídas (exclui pendentes).
+	measure 'Taxa de Atraso Concluídas %' = DIVIDE([Entregas Atrasadas], [Entregas Concluídas])
+		formatString: 0.00%;-0.00%;0.00%
+		displayFolder: 02 - Qualidade
+		lineageTag: 736afe0a-0abf-48fa-8668-11f1fd2c4573
+
+	/// Variação do percentual em pontos percentuais frente ao mês anterior.
+	measure 'On Time Mês Anterior %' = CALCULATE([On Time %], DATEADD(dim_calendario[Date], -1, MONTH))
+		formatString: 0.00%;-0.00%;0.00%
+		displayFolder: 03 - Tempo
+		lineageTag: 57564fb2-0582-4476-a40c-f353ccdb5a1b
+
+	measure 'Delta On Time (p.p.)' =
+			VAR Atual = [On Time %]
+			VAR Anterior = [On Time Mês Anterior %]
+			RETURN IF(ISBLANK(Anterior), BLANK(), (Atual - Anterior) * 100)
+		formatString: +0.00;-0.00;0.00
+		displayFolder: 03 - Tempo
+		lineageTag: d00a1c5e-3693-44aa-b332-fb30d7f21fe0
+
+	/// Compare a pontualidade por taxa, não só por volume absoluto.
+	measure 'Prioridade Transportadora (pts)' =
+			VAR Volume = [Entregas Concluídas]
+			VAR Pontualidade = [On Time %]
+			RETURN IF(Volume < 30, BLANK(), Volume * (1 - Pontualidade))
+		formatString: #,##0
+		displayFolder: 04 - Priorização
+		lineageTag: 792f06c6-6ba9-490e-87bb-db2f64b91a5b
+
+	/// Leitura dinâmica; filtros de período, CD e transportadora são respeitados.
+	measure 'Insight Atrasos' = "• " & FORMAT([Entregas Atrasadas], "#,##0") & " entregas concluídas fora do prazo (" & FORMAT([Taxa de Atraso Concluídas %], "0.0%") & " das concluídas)."
+		displayFolder: 05 - Insights
+		lineageTag: 270de14e-e2b5-444e-bd48-5f1602c59123
+
+	measure 'Insight Vencidos' = "• " & FORMAT([Pendentes Vencidos], "#,##0") & " pedidos ainda pendentes com prazo vencido (corte: 26/10/2026)."
+		displayFolder: 05 - Insights
+		lineageTag: 63e750a5-751d-4ca6-8916-7ef6bc1bde07
+
+	measure 'Insight CD' =
+			VAR Ranking = FILTER(ADDCOLUMNS(ALLSELECTED(dim_cd[cd]), "TaxaCD", [Taxa de Atraso Concluídas %], "VolumeCD", [Entregas Concluídas]), [VolumeCD] > 0 && NOT ISBLANK([TaxaCD]))
+			VAR PiorCD = TOPN(1, Ranking, [TaxaCD], DESC, [VolumeCD], DESC, dim_cd[cd], ASC)
+			RETURN IF(ISEMPTY(PiorCD), "• Sem CDs disponíveis para análise.", "• Maior taxa de atraso concluído: " & CONCATENATEX(PiorCD, dim_cd[cd], ", ") & " (" & FORMAT(MAXX(PiorCD, [TaxaCD]), "0.0%") & ").")
+		displayFolder: 05 - Insights
+		lineageTag: 14ff0660-f780-4df5-8bb6-720c76bfe2c6
+
+	measure 'Insight Transportadora Prioridade' =
+			VAR Ranking = FILTER(ADDCOLUMNS(ALLSELECTED(dim_transportadora[transportadora]), "OnTime", [On Time %], "Volume", [Entregas Concluídas]), [Volume] >= 30 && NOT ISBLANK([OnTime]))
+			VAR Pior = TOPN(1, Ranking, [OnTime], ASC, [Volume], DESC, dim_transportadora[transportadora], ASC)
+			RETURN IF(ISEMPTY(Pior), "• Sem transportadoras com 30 entregas concluídas.", "• Prioridade de análise: " & CONCATENATEX(Pior, dim_transportadora[transportadora], ", ") & " (pontualidade " & FORMAT(MAXX(Pior, [OnTime]), "0.0%") & ").")
+		displayFolder: 05 - Insights
+		lineageTag: cd03eb4a-ab9b-4949-874a-06a18d3341c0
+
+	measure 'Insight Tentativas' = "• " & FORMAT([Tentativas Adicionais], "#,##0") & " tentativas além da primeira, no período e filtros selecionados."
+		displayFolder: 05 - Insights
+		lineageTag: 0fb866dd-579a-45be-9462-90d4c4259b11
+
+	measure 'Insight Contexto' = "• Compare pontualidade e volume: uma contagem alta de atrasos não implica taxa pior."
+		displayFolder: 05 - Insights
+		lineageTag: 5d1d4797-518d-4d02-a912-7dfd0d051b38
+
+	measure 'Atraso Médio Exibição' =
+			IF(
+			    ISBLANK([Atraso Médio (h)]),
+			    "Sem dados",
+			    FORMAT([Atraso Médio (h)], "0.0") & " h"
+			)
+		displayFolder: 06 - Apresentação
+		lineageTag: 3a42c174-5816-48d3-a3c4-49d1047e62eb
+
+	/// Menor pontualidade entre transportadoras visíveis, com pelo menos uma entrega concluída.
+	measure 'Destaque Menor Pontualidade %' =
+			VAR Base =
+			    FILTER(
+			        ADDCOLUMNS(
+			            ALLSELECTED(dim_transportadora[transportadora]),
+			            "_Taxa", CALCULATE([On Time %]),
+			            "_Concluidas", CALCULATE([Entregas Concluídas])
+			        ),
+			        [_Concluidas] > 0 && NOT ISBLANK([_Taxa])
+			    )
+			VAR Pior = TOPN(1, Base, [_Taxa], ASC, dim_transportadora[transportadora], ASC)
+			RETURN MINX(Pior, [_Taxa])
+		formatString: 0.00%;-0.00%;0.00%
+		displayFolder: 05 - Insights
+		lineageTag: b7991cd5-78c8-4ad8-893c-130850406310
+
+	measure 'Destaque Menor Pontualidade Texto' =
+			VAR Base =
+			    FILTER(
+			        ADDCOLUMNS(
+			            ALLSELECTED(dim_transportadora[transportadora]),
+			            "_Taxa", CALCULATE([On Time %]),
+			            "_Concluidas", CALCULATE([Entregas Concluídas]),
+			            "_Atrasadas", CALCULATE([Entregas Atrasadas])
+			        ),
+			        [_Concluidas] > 0 && NOT ISBLANK([_Taxa])
+			    )
+			VAR Pior = TOPN(1, Base, [_Taxa], ASC, dim_transportadora[transportadora], ASC)
+			RETURN IF(
+			    ISEMPTY(Pior),
+			    "Sem entregas no período",
+			    CONCATENATEX(Pior, dim_transportadora[transportadora], "") &
+			        " · " & FORMAT(COALESCE(MAXX(Pior, [_Atrasadas]), 0), "#,##0") & " atrasadas"
+			)
+		displayFolder: 05 - Insights
+		lineageTag: c137d51c-5ba3-4216-84b2-22bfaadbef43
+
+	/// Maior volume de pedidos pendentes já vencidos no contexto filtrado.
+	measure 'Destaque Pendentes Vencidos' =
+			VAR Base =
+			    ADDCOLUMNS(
+			        ALLSELECTED(dim_transportadora[transportadora]),
+			        "_Pendentes", COALESCE(CALCULATE([Pendentes Vencidos]), 0)
+			    )
+			VAR Pior = TOPN(1, Base, [_Pendentes], DESC, dim_transportadora[transportadora], ASC)
+			VAR Valor = MAXX(Pior, [_Pendentes])
+			RETURN IF(Valor > 0, Valor, BLANK())
+		formatString: #,##0
+		displayFolder: 05 - Insights
+		lineageTag: 33f5d36b-2b15-42a3-926a-225175c37d53
+
+	measure 'Destaque Pendentes Texto' =
+			VAR Base =
+			    ADDCOLUMNS(
+			        ALLSELECTED(dim_transportadora[transportadora]),
+			        "_Pendentes", COALESCE(CALCULATE([Pendentes Vencidos]), 0)
+			    )
+			VAR Pior = TOPN(1, Base, [_Pendentes], DESC, dim_transportadora[transportadora], ASC)
+			VAR Valor = MAXX(Pior, [_Pendentes])
+			RETURN IF(
+			    Valor > 0,
+			    CONCATENATEX(Pior, dim_transportadora[transportadora], "") & " · pedidos vencidos",
+			    "Sem pendências vencidas"
+			)
+		displayFolder: 05 - Insights
+		lineageTag: 214f3f8b-d178-477a-88ba-7bf3bf8da71e
+
+	/// Maior soma de tentativas além da primeira entre as transportadoras visíveis.
+	measure 'Destaque Tentativas Extras' =
+			VAR Base =
+			    ADDCOLUMNS(
+			        ALLSELECTED(dim_transportadora[transportadora]),
+			        "_Extras", COALESCE(CALCULATE([Tentativas Adicionais]), 0)
+			    )
+			VAR Pior = TOPN(1, Base, [_Extras], DESC, dim_transportadora[transportadora], ASC)
+			VAR Valor = MAXX(Pior, [_Extras])
+			RETURN IF(Valor > 0, Valor, BLANK())
+		formatString: #,##0
+		displayFolder: 05 - Insights
+		lineageTag: 6ef4642d-f649-4706-b077-5ae25661c1c6
+
+	measure 'Destaque Tentativas Texto' =
+			VAR Base =
+			    ADDCOLUMNS(
+			        ALLSELECTED(dim_transportadora[transportadora]),
+			        "_Extras", COALESCE(CALCULATE([Tentativas Adicionais]), 0)
+			    )
+			VAR Pior = TOPN(1, Base, [_Extras], DESC, dim_transportadora[transportadora], ASC)
+			VAR Valor = MAXX(Pior, [_Extras])
+			RETURN IF(
+			    Valor > 0,
+			    CONCATENATEX(Pior, dim_transportadora[transportadora], "") & " · novas tentativas",
+			    "Sem tentativas adicionais"
+			)
+		displayFolder: 05 - Insights
+		lineageTag: e4f0ff49-51f8-43fa-83c2-35b6dcfad0e9
+
+	column Value
+		isHidden
+		formatString: 0.0
+		lineageTag: 68e75f83-6de3-4c8a-8bcc-6c33a3cd3fde
+		summarizeBy: sum
+		isNameInferred
+		sourceColumn: [Value]
+
+		annotation SummarizationSetBy = Automatic
+
+	partition '* Medidas' = calculated
+		mode: import
+		source = {0}
+
+	annotation PBI_Id = 2b9439e737f547e5bcf36b13867e2437
+

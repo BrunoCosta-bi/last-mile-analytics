@@ -1,0 +1,13 @@
+table dim_transportadora
+	lineageTag: 8b2618b6-50f7-4a6a-b2da-24827c35c989
+
+	column transportadora
+		dataType: string
+		lineageTag: 865742a2-3496-4215-939d-26d59c5ad9af
+		summarizeBy: none
+		sourceColumn: [transportadora]
+
+	partition dim_transportadora = calculated
+		mode: import
+		source = DISTINCT(SELECTCOLUMNS(fato_entregas, "transportadora", fato_entregas[transportadora]))
+

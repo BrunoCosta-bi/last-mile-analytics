@@ -1,0 +1,86 @@
+{
+  "version": "1.1.0",
+  "diagrams": [
+    {
+      "ordinal": 0,
+      "scrollPosition": {
+        "x": 152,
+        "y": 0
+      },
+      "nodes": [
+        {
+          "location": {
+            "x": 852,
+            "y": 0
+          },
+          "nodeIndex": "fato_entregas",
+          "nodeLineageTag": "b6a62bb5-0e4a-4785-ab68-afbe36dfef7e",
+          "size": {
+            "height": 300,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 1704,
+            "y": 50
+          },
+          "nodeIndex": "* Medidas",
+          "size": {
+            "height": 200,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 0,
+            "y": 50
+          },
+          "nodeIndex": "dim_calendario",
+          "nodeLineageTag": "f64dd303-d531-42ba-8eb0-c71bbf24f388",
+          "size": {
+            "height": 200,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 284,
+            "y": 50
+          },
+          "nodeIndex": "dim_cd",
+          "nodeLineageTag": "93dc045d-363f-4272-b4d3-f61bdc6ec8e4",
+          "size": {
+            "height": 200,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 568,
+            "y": 50
+          },
+          "nodeIndex": "dim_transportadora",
+          "nodeLineageTag": "8b2618b6-50f7-4a6a-b2da-24827c35c989",
+          "size": {
+            "height": 200,
+            "width": 234
+          },
+          "zIndex": 0
+        }
+      ],
+      "name": "Todas as tabelas",
+      "zoomValue": 100,
+      "pinKeyFieldsToTop": false,
+      "showExtraHeaderInfo": false,
+      "hideKeyFieldsWhenCollapsed": false,
+      "tablesLocked": false
+    }
+  ],
+  "selectedDiagram": "Todas as tabelas",
+  "defaultDiagram": "Todas as tabelas"
+}

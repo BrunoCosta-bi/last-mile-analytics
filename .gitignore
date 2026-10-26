@@ -1,0 +1,38 @@
+# Power BI (cache local, configurações e dados privados)
+**/.pbi/
+**/cache.abf
+**/localSettings.json
+**/*.pbitemp
+
+# Python
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.venv/
+venv/
+
+# IDE/OS
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+
+# SQL/segredos e exportações
+.env
+.env.*
+*.bak
+*.bacpac
+*.pbix
+*_credenciais.*
+
+# Pacotes temporários
+_base/
+*_work/
+
+# Arquivos do ambiente local / exportações
+*.zip
+*.log
+*.tmp
+*.pbit
+*.pbip~
+**/editorSettings.json

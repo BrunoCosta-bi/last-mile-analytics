@@ -1,0 +1,52 @@
+table dim_calendario
+	lineageTag: f64dd303-d531-42ba-8eb0-c71bbf24f388
+
+	column Date
+		dataType: dateTime
+		formatString: Short Date
+		lineageTag: 3cfeb980-1796-4403-9f56-ae1b6dad4449
+		summarizeBy: none
+		sourceColumn: [Date]
+
+	column Ano
+		dataType: int64
+		formatString: 0
+		lineageTag: 7c7c9272-f589-475c-84f9-7148c5a56233
+		summarizeBy: none
+		sourceColumn: [Ano]
+
+	column MesNum
+		dataType: int64
+		formatString: 0
+		lineageTag: eb18606f-ba4c-49f7-ae9b-978355606f26
+		summarizeBy: none
+		sourceColumn: [MesNum]
+
+	column AnoMes
+		dataType: int64
+		formatString: 0
+		lineageTag: be5752f5-bbe2-4d05-95a1-27afdd7ecc13
+		summarizeBy: none
+		sourceColumn: [AnoMes]
+
+	column MesAno
+		dataType: string
+		lineageTag: 5c126d67-481c-4ce7-8cb8-643b8af691ec
+		summarizeBy: none
+		sourceColumn: [MesAno]
+		sortByColumn: AnoMes
+
+	partition dim_calendario = calculated
+		mode: import
+		source =
+				VAR DataMin = MINX(fato_entregas, DATE(YEAR(fato_entregas[data_coleta_dia]), MONTH(fato_entregas[data_coleta_dia]), DAY(fato_entregas[data_coleta_dia])))
+				VAR DataMax = MAXX(fato_entregas, DATE(YEAR(fato_entregas[data_coleta_dia]), MONTH(fato_entregas[data_coleta_dia]), DAY(fato_entregas[data_coleta_dia])))
+				RETURN
+				ADDCOLUMNS(
+				    CALENDAR(DataMin, DataMax),
+				    "Ano", YEAR([Date]),
+				    "MesNum", MONTH([Date]),
+				    "AnoMes", YEAR([Date]) * 100 + MONTH([Date]),
+				    "MesAno", FORMAT([Date], "mmm/yyyy")
+				)
+

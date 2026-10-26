@@ -1,0 +1,43 @@
+{
+  "name": "Last-Mile Analytics | Tema do Relatório",
+  "dataColors": [
+    "#2F81C7",
+    "#1AA89C",
+    "#5B9FD8",
+    "#79B6AB",
+    "#425A72",
+    "#A6B7C8"
+  ],
+  "foreground": "#19344E",
+  "background": "#FFFFFF",
+  "tableAccent": "#1AA89C",
+  "good": "#16A085",
+  "neutral": "#94A3B8",
+  "bad": "#DC665E",
+  "firstLevelElements": "#182B43",
+  "secondLevelElements": "#6F8196",
+  "thirdLevelElements": "#F3F6FB",
+  "fourthLevelElements": "#94A3B8",
+  "textClasses": {
+    "title": {
+      "fontFace": "Segoe UI Semibold",
+      "fontSize": 15,
+      "color": "#182B43"
+    },
+    "label": {
+      "fontFace": "Segoe UI",
+      "fontSize": 11,
+      "color": "#6F8196"
+    },
+    "callout": {
+      "fontFace": "Segoe UI Semibold",
+      "fontSize": 32,
+      "color": "#182B43"
+    },
+    "header": {
+      "fontFace": "Segoe UI Semibold",
+      "fontSize": 14,
+      "color": "#182B43"
+    }
+  }
+}

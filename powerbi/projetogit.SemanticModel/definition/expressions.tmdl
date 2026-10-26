@@ -1,0 +1,20 @@
+expression ModoFonte = "Embutido" meta [IsParameterQuery=true, Type="Text", IsParameterQueryRequired=true]
+	lineageTag: 64567fcc-b588-40ff-b148-83b4704fcd81
+
+	annotation PBI_ResultType = Text
+
+expression CaminhoCSV = "C:\LastMile\data\lastmile_sintetico.csv" meta [IsParameterQuery=true, Type="Text", IsParameterQueryRequired=true]
+	lineageTag: 1e9d0f98-ec33-493e-a829-272fdecec71d
+
+	annotation PBI_ResultType = Text
+
+expression ServidorSQL = "localhost\MSSQLSERVER01" meta [IsParameterQuery=true, Type="Text", IsParameterQueryRequired=true]
+	lineageTag: fbbf66d2-8528-491f-b079-e95a2f02fb05
+
+	annotation PBI_ResultType = Text
+
+expression BancoSQL = "PortfolioLastMile" meta [IsParameterQuery=true, Type="Text", IsParameterQueryRequired=true]
+	lineageTag: d39cfc38-aa37-4f6f-b2f0-a614de09293a
+
+	annotation PBI_ResultType = Text
+

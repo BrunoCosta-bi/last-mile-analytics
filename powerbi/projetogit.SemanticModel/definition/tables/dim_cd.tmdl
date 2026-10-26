@@ -1,0 +1,13 @@
+table dim_cd
+	lineageTag: 93dc045d-363f-4272-b4d3-f61bdc6ec8e4
+
+	column cd
+		dataType: string
+		lineageTag: f5e3487e-6f4d-4c42-a8a8-417b0ce8cbd1
+		summarizeBy: none
+		sourceColumn: [cd]
+
+	partition dim_cd = calculated
+		mode: import
+		source = DISTINCT(SELECTCOLUMNS(fato_entregas, "cd", fato_entregas[cd]))
+
