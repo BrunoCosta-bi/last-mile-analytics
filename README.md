@@ -145,11 +145,9 @@ A pasta `docs/` agora contém:
 - uma **prévia analítica em Python** (`preview_sintetico.png`);
 - uma **referência visual de design** (`referencia_visual_opcao_1.png`).
 
-As imagens reais representam a interface final do relatório. Já a prévia em Python e a referência visual servem apenas como apoio de documentação e não substituem o arquivo PBIP.
+As imagens reais representam a interface final do relatório. A prévia analítica em Python não é uma captura do Power BI. A referência visual é uma proposta de design, não uma captura real do relatório. Ambas servem apenas como material de apoio à documentação e não substituem o arquivo PBIP.
 
 A amostra foi projetada para ser reprodutível e **não demonstra resultados reais de uma empresa**. Comparações entre meses e tendências representam apenas o comportamento do conjunto sintético.
-
-A prévia analítica em Python não é uma captura do Power BI. A referência visual também é apenas uma proposta de design. As capturas reais estão identificadas separadamente no repositório.
 
 ## Licença
 
